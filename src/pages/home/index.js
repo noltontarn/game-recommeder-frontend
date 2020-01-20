@@ -1,21 +1,82 @@
-import React from 'react'
+import React, {
+    useEffect,
+    useState,
+} from 'react'
 import Particles from 'react-particles-js'
 import styled from 'styled-components'
+import {
+    useSelector,
+    useDispatch,
+} from 'react-redux'
+import { testSelector } from '../../redux/test/selectors'
+import { Link } from 'react-router-dom'
+import { setTest } from '../../redux/actions'
 
 const Background = styled.div`
     background: MidnightBlue;
+    //display: flex;
     position: fixed;
     width: 100%;
     height: 100%;
     left: 0;
     top: 0;
+    z-index: -10;
+`
+const Div = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1;
+`
+
+const Grid = styled.div`
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+`
+
+const InputBox = styled.input`
+    margin: 10px;
+`
+
+const Button = styled.button`
+    color: white;
+    background: gray;
+    padding: 5px 10px;
+    border-width: 0px;
+    cursor: pointer;
+    border-radius: 4px;
 `
 
 function Home(props) {
+    const test = useSelector(testSelector)
+    const dispatch = useDispatch()
+    const textChange = event => {
+        dispatch(setTest(event.target.value))
+    }
 
+    
+    useEffect(() => {
+        console.log(test)
+    }, [test])
 
 
     return (
+        <React.Fragment>
+        <Div>
+            <Grid>
+                <InputBox type='text' value={test} onChange={event => textChange(event)}></InputBox>
+                <Link to='/etc'>
+                    <Button>Submit</Button>
+                </Link>
+            </Grid>
+        </Div>
         <Background>
             <Particles
                 params={{
@@ -44,6 +105,7 @@ function Home(props) {
                 }} 
             />
         </Background>
+        </React.Fragment>
     )
 }
 
