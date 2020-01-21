@@ -10,7 +10,7 @@ import {
 } from 'react-redux'
 import { testSelector } from '../../redux/test/selectors'
 import { Link } from 'react-router-dom'
-import { setTest } from '../../redux/actions'
+import { setTest, fetchTest, fetchTest2 } from '../../redux/actions'
 
 const Background = styled.div`
     background: MidnightBlue;
@@ -61,6 +61,14 @@ function Home(props) {
         dispatch(setTest(event.target.value))
     }
 
+    const fetchButton = event => {
+        dispatch(fetchTest())
+    }
+
+    const fetchButton2 = event => {
+        fetchTest2(dispatch)
+    }
+
     
     useEffect(() => {
         console.log(test)
@@ -75,6 +83,8 @@ function Home(props) {
                 <Link to='/etc'>
                     <Button>Submit</Button>
                 </Link>
+                <Button onClick={event => fetchButton(event)}>Fetch</Button>
+                <Button onClick={event => fetchButton2(event)}>Fetch2</Button>
             </Grid>
         </Div>
         <Background>

@@ -12,7 +12,6 @@ function ETC(props) {
     return (
         <div>
             ETC
-            {test}
         </div>
     )
 }
